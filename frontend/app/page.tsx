@@ -68,25 +68,27 @@ export default function Home() {
           </p>
         )}
 
-        {result && (
-          <div className="mt-6 flex flex-col gap-3 rounded-lg bg-gray-100 p-4 sm:flex-row sm:items-center">
-            <a
-              href={result.short_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 break-all font-mono text-blue-700 underline"
-            >
-              {result.short_url}
-            </a>
-            <button
-              type="button"
-              onClick={onCopy}
-              className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50"
-            >
-              {copied ? "Copied!" : "Copy"}
-            </button>
-          </div>
-        )}
+        <div aria-live="polite">
+          {result && (
+            <div className="mt-6 flex flex-col gap-3 rounded-lg bg-gray-100 p-4 sm:flex-row sm:items-center">
+              <a
+                href={result.short_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 break-all font-mono text-blue-700 underline"
+              >
+                {result.short_url}
+              </a>
+              <button
+                type="button"
+                onClick={onCopy}
+                className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50"
+              >
+                {copied ? "Copied!" : "Copy"}
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </main>
   );

@@ -42,4 +42,19 @@ describe("shortenUrl", () => {
       "Could not reach the server. Please try again.",
     );
   });
+
+  it("strips a trailing slash from the API base URL", async () => {
+    const result = { short_code: "abc123", short_url: "http://api.test/abc123" };
+    const fetchFn = mockFetch(async () => new Response(JSON.stringify(result), { status: 200 }));
+
+    await shortenUrl("https://example.com", "http://api.test/");
+    expect(fetchFn).toHaveBeenCalledWith("http://api.test/shorten", expect.anything());
+  });
+
+  it("rejects a malformed 200 response", async () => {
+    mockFetch(async () => new Response("<html>", { status: 200 }));
+    await expect(shortenUrl("https://example.com", API)).rejects.toThrow(
+      "Unexpected response from server. Please try again.",
+    );
+  });
 });
